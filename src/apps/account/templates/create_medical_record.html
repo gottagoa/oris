@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+
+<html>
+<head>
+    <title>Создать запись истории болезни</title>
+</head>
+<body>
+    <h2>Создать запись истории болезни</h2>
+
+    <form method="post" enctype="multipart/form-data" action="{% url 'create_medical_record' appointment.id %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+    </form>    
+    
+</body>
+</html>
+
+{%endblock%}

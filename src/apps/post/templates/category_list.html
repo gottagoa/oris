@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+
+<!-- ======= Departments Section ======= -->
+<section id="departments" class="departments">
+  <div class="container" data-aos="fade-up">
+
+    <div class="section-title">
+      <h2>Отделения</h2>
+      <p>{{ about.description }}</p>
+      <img src="{{ about.image.url }}" alt="" class="img-fluid" tyle="max-width: 40%; height:90%">
+    </div>
+
+    <div class="row">
+      {% for category in categories %}
+      <div class="col-lg-4 mb-4">
+        <div class="tab-content">
+          <div class="tab-pane active show" id="tab-1">
+            <a href="{% url 'category_template' id=category.id %}">
+              <h3>{{ category.name }}</h3>
+            </a>
+            <p>{{ category.description|slice:":70" }}...</p>
+          </div>
+        </div>
+      </div>
+      {% if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}

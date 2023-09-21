@@ -1,0 +1,267 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  
+{% endblock %}
+
+{% block content %}
+<section class="pt-0">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-3 mb-lg-0 wow fadeIn" data-wow-delay="200ms" style="visibility: visible; animation-delay: 200ms; animation-name: fadeIn;">
+                <div class="pe-xl-7">
+                    <div class="position-relative pb-sm-14">
+                        <div class="text-center text-sm-start">
+                        
+                            {% if doctor.user.avatar %}
+                                
+                                <img src="{{ doctor.user.avatar.url }}" class="img-fluid"  width="500"  height="500" alt="">
+                            {%else%}
+                
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
+                                </svg>
+                            
+                            {%endif%}
+
+                        </div>
+                       
+                 
+                        <div class="primary-shadow py-2 px-1-9 position-absolute border-radius-10 left-sm-10 bottom-5 z-index-9 bg-white">
+                            <div class="d-flex align-items-center">
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 wow fadeIn" data-wow-delay="400ms" style="visibility: visible; animation-delay: 400ms; animation-name: fadeIn;">
+                <div class="ps-xl-1-9">
+        
+                    <h4 class="h1 mb-1-9" id="user" data-user-id="{{doctor.user.id}}">{{doctor.user.full_name}}
+                        
+                        <!-- <h6> {{doctor.speciality}}</h6> -->
+                        
+                    </h4>
+
+                    <p class="mb-1-9"> {{doctor.qualification}}</p>
+                    <p class="mb-1-9">Опыт работы: {{doctor.experience}}</p>
+                    <p class="mb-1-9"> Образование: {{doctor.education}}</p>
+                    <p class="mb-1-9"> Сертификаты: {{doctor.certification}}</p>
+
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">оставить отзыв</button>
+                        <a href="{% url 'doctor_reviews' doctor.id %}" class="btn btn-primary">посмотреть отзывы</a>
+                  
+
+                    <div class="container">
+                        <h1 class="mt-5">Расписание </h1>
+                        
+                        <!-- Таблица расписания -->
+                        <table class="table table-bordered mt-3">
+                            <thead>
+                                <tr>
+                                    <th>День недели</th>
+                                    <th>Время работы</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for day in available_times %}
+                                    <tr>
+                                        <td>{{day.day}}</td>
+                                        <td>{{day.start_time|time:"H:i"}}-{{day.end_time|time:"H:i"}}</td>
+                                    </tr>
+                                {% endfor %}
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                    <form method="post" action="{% url 'doctor_template' doctor.user.pk %}">
+                        {% csrf_token %}
+                        {{form}}
+
+                        <button type="submit"> Забронировать </button>
+                    </form>
+                    
+                    <!-- <div class="row border-top border-color-light-black pt-1-9 mt-1-9">
+                        <div class="col-sm-6 col-md-4 mb-4 mb-md-0">
+                            <h3 class="h1"><span class="countup">30</span>+</h3>
+                            <p class="mb-0">Awards Win</p>
+                        </div>
+                        <div class="col-sm-6 col-md-4 mb-4 mb-md-0">
+                            <h3 class="h1"><span class="countup">100</span>+</h3>
+                            <p class="mb-0">Experience Members</p>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <h3 class="h1"><span class="countup">15</span>k</h3>
+                            <p class="mb-0">Satisfied Clients</p>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Open modal for @mdo</button> -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ваш отзыв</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="{% url 'create_review' doctor.user.id %}" id="reviewForm">
+            {% csrf_token %}
+            <input type="text" name="comment" id="comment">
+            <div class="rating">
+                <input type="radio" id="star5" name="rating" value="5">
+                <label for="star5"></label>
+                <input type="radio" id="star4" name="rating" value="4">
+                <label for="star4"></label>
+                <input type="radio" id="star3" name="rating" value="3">
+                <label for="star3"></label>
+                <input type="radio" id="star2" name="rating" value="2">
+                <label for="star2"></label>
+                <input type="radio" id="star1" name="rating" value="1">
+                <label for="star1"></label>
+            </div>
+            
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-primary" id="sendMessageBtn">Отправить</button>
+                </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{%endblock%}
+
+
+
+{% block js %}
+
+<style>
+    .rating {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+.rating input {
+  display: none;
+}
+
+.rating label {
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
+        margin-right: 2px; /* Уменьшите расстояние между звездами, если необходимо */
+        background-image: url("{% static 'assets/img/empty_star.png' %}");
+        background-size: cover;
+    }
+
+.rating input:checked ~ label {
+  background-image: url("{% static 'assets/img/full_star.png' %}"); /* Замените на изображение заполненной звезды */
+}
+</style>
+
+<script>
+
+
+$(document).ready(function() {
+    $('#day').datetimepicker({
+        format: 'Y-m-d', // Формат даты
+        timepicker: false // Отключение времени
+    });
+});
+
+$(document).ready(function() {
+  $('input[name="rating"]').change(function() {
+    var rating = $(this).val();
+    // Здесь вы можете выполнить дополнительные действия с выбранным рейтингом.
+    console.log("Выбран рейтинг: " + rating);
+  });
+});
+
+
+
+</script>
+<script>
+    document.getElementById("sendMessageBtn").addEventListener("click", function() {
+    // Submit the form when the "Отправить" button is clicked
+    document.getElementById("reviewForm").submit();
+});
+    
+        $(document).ready(function () {
+            // Обработчик события изменения значения поля выбора даты
+            $("#day").on("change", function () {
+                // Получение выбранной даты
+                var selectedDate = $(this).val();
+                console.log(selectedDate);
+                // Получение значения пользователя (замените на свой способ получения ID пользователя)
+                var userId = $("#user").data("user-id");// Пример
+
+                // Отправка AJAX запроса на сервер
+                $.ajax({
+                    type: "POST", // Или другой метод HTTP
+                    url: "/doctor/available_slots/", // Замените на свой URL
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    data: JSON.stringify({  // Преобразуйте данные в JSON
+                        date: selectedDate,
+                        user_id: userId
+                    }),
+                    success: function (response) {
+                        slots = response.slots
+                        console.log(slots);
+                        // Очищаем поле времени
+                        $("#time").empty();
+                        // Вставляем полученные временные слоты в поле времени
+                        for (var i = 0; i < slots.length; i++) {
+                            $("#time").append(new Option(slots[i], response.slots[i]));
+                        }
+                    },
+                    error: function () {
+                        console.log("Ошибка при получении временных слотов");
+                    }
+                });
+            });
+        });
+
+
+var exampleModal = document.getElementById('exampleModal')
+exampleModal.addEventListener('show.bs.modal', function (event) {
+  
+var button = event.relatedTarget
+
+var recipient = button.getAttribute('data-bs-whatever')
+
+var modalTitle = exampleModal.querySelector('.modal-title')
+var modalBodyInput = exampleModal.querySelector('.modal-body input')
+
+//   modalTitle.textContent = 'New message to ' + recipient
+//   modalBodyInput.value = recipient
+})
+
+</script>
+
+{% endblock %}

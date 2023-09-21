@@ -1,0 +1,738 @@
+ <!-- ======= Hero Section ======= -->
+ {% extends 'base.html' %}
+ {% load static %}
+ {% load humanize %}
+ {% block content %}
+
+ 
+ 
+ <section id="hero">
+  <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
+
+    <ol class="carousel-indicators" id="hero-carousel-indicators">
+      {% for about in about_index %}
+      <li data-bs-target="#heroCarousel" data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
+      {% endfor %}
+    </ol>
+
+    <div class="carousel-inner" role="listbox">
+      {% for about in about_index %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}" style="background-image: url('{{ about.image.url }}')">
+        <div class="container">
+          <img src="{{ about.image.url }}" class="img-fluid" alt="">
+          <h2>Добро пожаловать в <span>Oris</span></h2>
+          <p>{{ about.description }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
+    </a>
+
+    <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+      <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
+    </a>
+
+  </div>
+</section>
+
+<!-- End Hero -->
+
+  <main id="main">
+
+    <!-- ======= Featured Services Section ======= -->
+    <!-- <section id="featured-services" class="featured-services"> -->
+      <!-- <div class="container" data-aos="fade-up">
+
+        <div class="row">
+          <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+            <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
+              <div class="icon"><i class="fas fa-heartbeat"></i></div>
+              <h4 class="title"><a href="">Lorem Ipsum</a></h4>
+              <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+            <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
+              <div class="icon"><i class="fas fa-pills"></i></div>
+              <h4 class="title"><a href="">Sed ut perspiciatis</a></h4>
+              <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p> -->
+            <!-- </div>
+          </div>
+
+          <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+            <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
+              <div class="icon"><i class="fas fa-thermometer"></i></div>
+              <h4 class="title"><a href="">Magni Dolores</a></h4>
+              <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+            <div class="icon-box" data-aos="fade-up" data-aos-delay="400">
+              <div class="icon"><i class="fas fa-dna"></i></div> -->
+              <!-- <h4 class="title"><a href="">Nemo Enim</a></h4> -->
+              <!-- <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div> -->
+    <!-- </section>End Featured Services Section -->
+
+   <!-- ======= Cta Section ======= -->
+    <section id="cta" class="cta">
+      <div class="container" data-aos="zoom-in">
+
+        <div class="text-center">
+          <h3>Необходима срочная помощь?</h3>
+          <!-- <p> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> -->
+          <a class="cta-btn scrollto" href="{% url 'book_appointment'%}">Записаться на прием</a>
+        </div>
+
+      </div>
+    </section>
+    <!-- End Cta Section -->
+
+
+    
+    <!-- ======= About Us Section ======= -->
+    <section id="about" class="about">
+      <div class="container" data-aos="fade-up">
+  
+        <div class="section-title">
+          <h2>О нас</h2>
+        </div>
+  
+        <div class="row">
+          <div class="col-lg-6" data-aos="fade-right">
+            <img src="{{about_us.image.url }}" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0 content" data-aos="fade-left">
+            <!-- <h3>Voluptatem dignissimos provident quasi corporis voluptates sit assumenda.</h3> -->
+            <p class="fst-italic">{{about_us.description}}</p>
+           
+          </div>
+        </div>
+  
+      </div>
+    </section><!-- End About Us Section -->
+  
+    <section id="counts" class="counts">
+      <div class="container" data-aos="fade-up">
+  
+        <div class="row no-gutters">
+  
+          <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
+            <div class="count-box">
+              <i class="fas fa-user-md"></i>
+              <span data-purecounter-start="0" data-purecounter-end= {{quantity}} data-purecounter-duration="1" class="purecounter"></span>
+              <p><strong>Специалисты</strong></p>
+              <a href="{% url 'doctors' %}">Больше &raquo;</a>
+            </div>
+          </div>
+  
+          <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
+            <div class="count-box">
+              <i class="far fa-hospital"></i>
+              <span data-purecounter-start="0" data-purecounter-end="{{quantity_categories}}" data-purecounter-duration="1" class="purecounter"></span>
+              <p><strong>Отделения</strong></p>
+              <a href="{% url 'category_list' %}">Больше &raquo;</a>
+            </div>
+          </div>
+  
+          <!-- <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
+            <div class="count-box">
+              <i class="fas fa-flask"></i>
+              <span data-purecounter-start="0" data-purecounter-end="14" data-purecounter-duration="1" class="purecounter"></span>
+              <p><strong>Исследования</strong></p>
+              <a href="#">Больше &raquo;</a>
+            </div>
+          </div> -->
+  
+          <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
+            <div class="count-box">
+              <i class="fas fa-award"></i>
+              <span data-purecounter-start="0" data-purecounter-end="{{quantity_rewards}}" data-purecounter-duration="1" class="purecounter"></span>
+              <p><strong>Награды</strong></p>
+              <a href="{%url 'reward_list'%}">Больше&raquo;</a>
+            </div>
+          </div>
+  
+        </div>
+  
+      </div>
+    </section>
+          
+    <!-- </section> -->
+    <!-- <section id="about" class="about"> -->
+      <!-- <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>О нас</h2>
+          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6" data-aos="fade-right">
+            <img src="assets/img/about.jpg" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0 content" data-aos="fade-left"> -->
+            <!-- <h3>Voluptatem dignissimos provident quasi corporis voluptates sit assumenda.</h3>
+            <p class="fst-italic">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+              magna aliqua.
+            </p>
+            <ul>
+              <li><i class="bi bi-check-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+              <li><i class="bi bi-check-circle"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
+              <li><i class="bi bi-check-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</li>
+            </ul>
+            <p>
+              Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+              velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in -->
+              <!-- culpa qui officia deserunt mollit anim id est laborum
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section><End About Us Section -->
+
+    <!-- ======= Counts Section ======= -->
+    <!-- <section id="counts" class="counts">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row no-gutters">
+
+          <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
+            <div class="count-box">
+              <i class="fas fa-user-md"></i>
+              <span data-purecounter-start="0" data-purecounter-end="85" data-purecounter-duration="1" class="purecounter"></span>
+
+              <p><strong>Специалисты</strong> consequuntur quae qui deca rode</p> -->
+              <!-- <a href="#">Find out more &raquo;</a> -->
+            <!-- </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
+            <div class="count-box">
+              <i class="far fa-hospital"></i>
+              <span data-purecounter-start="0" data-purecounter-end="26" data-purecounter-duration="1" class="purecounter"></span>
+              <p><strong>Отдедения</strong> adipisci atque cum quia aut numquam delectus</p>
+              <a href="#">Больше &raquo;</a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
+            <div class="count-box">
+              <i class="fas fa-flask"></i>
+              <span data-purecounter-start="0" data-purecounter-end="14" data-purecounter-duration="1" class="purecounter"></span>
+              <p><strong>Research Lab</strong> aut commodi quaerat. Aliquam ratione</p> --> -->
+              <!-- <a href="#">Больше &raquo;</a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
+            <div class="count-box">
+              <i class="fas fa-award"></i>
+              <span data-purecounter-start="0" data-purecounter-end="150" data-purecounter-duration="1" class="purecounter"></span>
+              <p><strong>Награды</strong> rerum asperiores dolor molestiae doloribu</p>
+              <a href="#">Больше&raquo;</a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>End Counts Section -->
+
+    <!-- ======= Features Section ======= -->
+    <!-- <section id="features" class="features">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row">
+          <div class="col-lg-6 order-2 order-lg-1" data-aos="fade-right">
+            <div class="icon-box mt-5 mt-lg-0">
+              <i class="bx bx-receipt"></i> -->
+              <!-- <h4>Est labore ad</h4>
+              <p>Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut aliquip</p>
+            </div>
+            <div class="icon-box mt-5">
+              <i class="bx bx-cube-alt"></i>
+              <h4>Harum esse qui</h4>
+              <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt</p>
+            </div>
+            <div class="icon-box mt-5">
+              <i class="bx bx-images"></i>
+              <h4>Aut occaecati</h4>
+              <p>Aut suscipit aut cum nemo deleniti aut omnis. Doloribus ut maiores omnis facere</p>
+            </div>
+            <div class="icon-box mt-5">
+              <i class="bx bx-shield"></i>
+              <h4>Beatae veritatis</h4>
+              <p>Expedita veritatis consequuntur nihil tempore laudantium vitae denat pacta</p>
+            </div>
+          </div>
+          <div class="image col-lg-6 order-1 order-lg-2" style='background-image: url("assets/img/features.jpg");' data-aos="zoom-in"></div>
+        </div>
+
+      </div>
+    </section>End Features Section -->
+
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="services services">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Услуги</h2>
+          <p class="fst-italic">{{about_services.description}}</p>
+        </div>
+    
+        <div class="row" id="services-container">
+          {% for service in services %}
+          {% if forloop.counter <= 9 %}
+          <div class="col-lg-4 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="100">
+            <div class="icon"> <img src="{{service.image.url}}" alt=""></div>
+            <h4 class="title"><a href="{%url 'service_template' id=service.id%}">{{service.name}}</a></h4>
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+    
+        <div class="text-center mt-3">
+          <a href="{% url 'services' %}" class="load-more-button">Больше</a>
+        </div>
+      </div>
+    </section>
+    <style>
+      .icon-box .icon img {
+    max-width: 135%; 
+    max-height: 135px; 
+    height: auto; 
+    }
+    </style>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const servicesContainer = document.getElementById("services-container");
+        const loadMoreServices = document.getElementById("load-more-services");
+        const additionalServices = document.querySelectorAll(".icon-box[data-aos='zoom-in'][data-aos-delay='100']:nth-child(n+10)");
+    
+        loadMoreServices.addEventListener("click", function (e) {
+          e.preventDefault();
+          additionalServices.forEach((service) => {
+            service.style.display = "block";
+          });
+          loadMoreServices.style.display = "none";
+        });
+      });
+    </script>
+    
+          <!-- <div class="col-lg-4 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="200">
+            <div class="icon"><i class="fas fa-pills"></i></div>
+            <h4 class="title"><a href="">Dolor Sitema</a></h4>
+            <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
+          </div>
+          <div class="col-lg-4 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="300">
+            <div class="icon"><i class="fas fa-hospital-user"></i></div>
+            <h4 class="title"><a href="">Sed ut perspiciatis</a></h4>
+            <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
+          </div>
+          <div class="col-lg-4 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="100">
+            <div class="icon"><i class="fas fa-dna"></i></div>
+            <h4 class="title"><a href="">Magni Dolores</a></h4>
+            <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+          </div>
+          <div class="col-lg-4 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="200">
+            <div class="icon"><i class="fas fa-wheelchair"></i></div>
+            <h4 class="title"><a href="">Nemo Enim</a></h4>
+            <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
+          </div>
+          <div class="col-lg-4 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="300">
+            <div class="icon"><i class="fas fa-notes-medical"></i></div>
+            <h4 class="title"><a href="">Eiusmod Tempor</a></h4>
+            <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
+          </div> -->
+       
+    <!-- End Services Section -->
+
+    <!-- ======= Appointment Section ======= -->
+    <!-- <section id="appointment" class="appointment section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Записаться на прием</h2>
+          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+        </div> -->
+
+        <!-- <form action="forms/appointment.php" method="post" role="form" class="php-email-form" data-aos="fade-up" data-aos-delay="100">
+          <div class="row">
+            <div class="col-md-4 form-group">
+              <input type="text" name="name" class="form-control" id="name" placeholder="Ваше имя" required>
+            </div>
+            <div class="col-md-4 form-group mt-3 mt-md-0">
+              <input type="email" class="form-control" name="email" id="email" placeholder="Ваш электронный адррес" required>
+            </div>
+            <div class="col-md-4 form-group mt-3 mt-md-0">
+              <input type="tel" class="form-control" name="phone" id="phone" placeholder="Ваш телефон" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 form-group mt-3">
+              <input type="datetime" name="date" class="form-control datepicker" id="date" placeholder="Дата приема" required>
+            </div>
+            <div class="col-md-4 form-group mt-3">
+              <select name="department" id="department" class="form-select"> -->
+                <!-- <option value="">Выбрать отделение</option>
+                <option value="Department 1">Стоматология</option>
+                <option value="Department 2">Кожвенерология</option>
+                <option value="Department 3">Косметология</option>
+                <option value="Department 3">Кардеология</option>
+                <option value="Department 3">Неврология</option>
+                <option value="Department 3">Трихология</option>
+              </select>
+            </div>
+            <div class="col-md-4 form-group mt-3">
+              <select name="doctor" id="doctor" class="form-select">
+                <option value="">Выберите специалиста</option>
+                <option value="Doctor 1">{}</option>
+                <option value="Doctor 2">Специалист 2</option>
+                <option value="Doctor 3">Специалист 3</option> -->
+              <!-- </select>
+            </div>
+          </div>
+
+          <div class="form-group mt-3">
+            <textarea class="form-control" name="message" rows="5" placeholder="Комментарии (по желанию)"></textarea>
+          </div>
+          <div class="my-3">
+            <div class="loading">Загрузка</div>
+            <div class="error-message"></div>
+            <div class="sent-message">Ваша запись прошла успешно! Спасибо большое!</div>
+          </div>
+          <div class="text-center"><button type="submit">Записаться</button></div>
+        </form> -->
+
+      <!-- </div> -->
+    <!-- </section>End Appointment Section -->
+
+    <!-- ======= Departments Section ======= -->
+    <section id="departments" class="departments">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Отделения</h2>
+          <p>{{ about_categories.description }}</p>
+        </div>
+        <div class="row" data-aos="fade-up" data-aos-delay="100">
+          {% for category in categories %}
+          {% if forloop.counter <= 9 %}
+          <div class="col-lg-4 mb-1 mb-lg-0">
+            <ul class="nav nav-tabs flex-column">
+              <li class="nav-item text-center"> {# Добавлен класс text-center #}
+                <a href="{% url 'category_template' id=category.id %}">
+                  <h4>{{ category.name }}</h4>
+                  <p></p>
+                </a>
+              </li>
+            </ul>
+          </div>
+          {% endif %}
+          {% endfor %}
+          <div class="col-lg-12 text-center" id="load-more-container">
+            {% for category in categories %}
+            {% if forloop.counter > 9 %}
+            <div class="additional-category" style="display: none;">
+              <ul class="nav nav-tabs flex-column">
+                <li class="nav-item text-center"> {# Добавлен класс text-center #}
+                  <a href="{% url 'category_template' id=category.id %}">
+                    <h4>{{ category.name }}</h4>
+                    <p></p>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            {% endif %}
+            {% endfor %}
+            <div class="text-center mt-3">
+              <a href="{% url 'category_list' %}" class="load-more-button">Больше</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- End Departments Section -->
+
+    <section id="testimonials" class="testimonials">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Отзывы наших пациентов</h2>
+        </div>
+    
+        <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
+          <div class="swiper-wrapper">
+            {% for review in reviews %}
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  {{ review.comment }}
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+                {% if review.patient.user.avatar %}
+                  <img class="round-image" src="{{ review.patient.user.avatar.url }}" width="16" height="16" alt="Аватар пользователя">
+                {% else %}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
+                  </svg>
+                {% endif %}
+                <h3>{{ review.patient.user.full_name }}</h3>
+                
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="swiper-pagination swiper-pagination-fraction"></div>
+        </div>
+    
+        <div class="text-center mt-3">
+          <a href="{% url 'review_list' %}" class="load-more-button">Больше</a>
+        </div>
+      </div>
+    
+</section> 
+    
+
+    <!-- ======= Doctors Section ======= -->
+    <section id="doctors" class="doctors section-bg">
+      <div class="container" data-aos="fade-up">
+    
+        <div class="section-title">
+          <h2>Специалисты</h2>
+        </div>
+    
+        <div class="row">
+          <div class="col-lg-6" data-aos="fade-right">
+            <img src="{{about.image.url }}" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0 content" data-aos="fade-left">
+            <p class="fst-italic">{{about.description}}</p>
+          </div>
+        </div>
+    
+        <div class="row">
+          {% for doctor in doctors|slice:":8" %}
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+            <div class="member" data-aos="fade-up" data-aos-delay="100">
+              <div class="member-img">
+                <a href="{% url 'doctor_template' pk=doctor.user.pk %}">
+                  {% if doctor.user.avatar %}
+                  <img src="{{ doctor.user.avatar.url }}" class="img-fluid" alt="">
+                  {% else %}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z" />
+                  </svg>
+                  {% endif %}
+                </a>
+                <!-- <div class="social">
+                  <a href=""><i class="bi bi-twitter"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div> -->
+              </div>
+              <div class="member-info">
+                <a href="{% url 'doctor_template' pk=doctor.user.pk %}">
+                  <h4>{{doctor.user.full_name}}</h4>
+                  <span>{{doctor.speciality}}</span>
+                </a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="text-center mt-3">
+          <a href="{% url 'doctors' %}" class="load-more-button">Больше</a>
+        </div>
+      </div>
+    </section>
+    <!-- End Doctors Section -->
+
+    <!-- ======= Gallery Section ======= -->
+    <section id="gallery" class="gallery">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Галерея</h2>
+        </div>
+        <div class="gallery-slider swiper">
+          <div class="swiper-wrapper align-items-center">
+            {% for image in gallery %}
+            <div class="swiper-slide">
+              <a class="gallery-lightbox" href="{{ image.image.url }}">
+                <img src="{{image.image.url }}" class="img-fluid" alt="">
+              </a>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+    </section>
+    
+
+    <!-- End Gallery Section -->
+    <section id="faq" class="faq section-bg">
+      <div class="container" data-aos="fade-up">
+    
+        <div class="section-title">
+          <h2>Часто задаваемые вопросы</h2>
+          <p>{{about_faq.description}}</p>
+        </div>
+    
+        <ul class="faq-list">
+          {% for faq in faqs|slice:":6" %} {# Ограничиваем список первыми 6 элементами #}
+          <li>
+            <div data-bs-toggle="collapse" class="collapsed question" href="#faq{{faq.id}}">{{faq.question}}<i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
+            <div id="faq{{faq.id}}" class="collapse" data-bs-parent=".faq-list">
+              <p>{{faq.answer}}</p>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+    
+        {% if faqs|length > 6 %} {# Проверяем, если есть больше 6 вопросов #}
+        <a href="{% url 'faq_list' %}" class="load-more-button">Больше</a>
+        {% endif %}
+    
+      </div>
+    </section>
+    
+    <!-- End Frequently Asked Questioins Section -->
+  
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Контакты</h2>
+          <!-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p> -->
+        </div>
+
+      </div>
+
+      <div>
+        <!-- <iframe style="border:0; width: 100%; height: 350px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameborder="0" allowfullscreen></iframe> -->
+        <iframe style="border:0; width: 100%; height: 350px;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2926.3968196868673!2d74.6304524761642!3d42.82223090577788!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x389eb5d3e7906179%3A0x8771139e13b3f113!2zNDAsIDQg0YPQuy4g0KHQsNGP0LrQsdCw0Y8g0JrQsNGA0LDQu9Cw0LXQstCwLCDQkdC40YjQutC10Lo!5e0!3m2!1sru!2skg!4v1693100606374!5m2!1sru!2skg" width="800" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+
+      <div class="container" >
+
+        <div class="row mt-5">
+
+          <div class="col-lg-6">
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="info-box">
+                  <i class="bx bx-map"></i>
+                  <h3>Адрес</h3>
+                  <p>{{contacts.address}}</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="info-box mt-4">
+                  <i class="bx bx-envelope"></i>
+                  <h3>Напишите нам</h3>
+                  <p>{{contacts.email}}</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="info-box mt-4">
+                  <i class="bx bx-phone-call"></i>
+                  <h3>Позвоните нам</h3>
+                  <p>{{contacts.cell}}</p>
+                </div>
+              </div>
+            </div>
+           
+          </div>
+
+          <!-- <div class="col-lg-6">
+            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required="">
+                </div>
+                <div class="col-md-6 form-group mt-3 mt-md-0">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required="">
+                </div>
+              </div>
+              <div class="form-group mt-3">
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required="">
+              </div>
+              <div class="form-group mt-3">
+                <textarea class="form-control" name="message" rows="7" placeholder="Message" required=""></textarea>
+              </div>
+              <div class="my-3">
+                <div class="loading">Загрузка</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Ваше сообщение отправлено! Спасибо!</div>
+              </div>
+              <div class="text-center"><button type="submit">Отправить сообщение</button></div>
+            </form>
+          </div> -->
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+
+{%endblock%}
+
+{%block js%}
+
+<script>
+  // JavaScript для загрузки дополнительных элементов по нажатию на кнопку "Больше"
+  const loadMoreButton = document.getElementById("load-more-button");
+  const loadMoreContainer = document.getElementById("load-more-container");
+  let additionalCategoriesVisible = false;
+
+  loadMoreButton.addEventListener("click", function (e) {
+    e.preventDefault();
+    if (!additionalCategoriesVisible) {
+      const additionalCategories = document.querySelectorAll(".additional-category");
+      additionalCategories.forEach((category) => {
+        category.style.display = "block";
+      });
+      loadMoreButton.innerText = "Скрыть";
+      additionalCategoriesVisible = true;
+    } else {
+      const additionalCategories = document.querySelectorAll(".additional-category");
+      additionalCategories.forEach((category) => {
+        category.style.display = "none";
+      });
+      loadMoreButton.innerText = "Больше"; 
+      additionalCategoriesVisible = false;
+    }
+  });
+ // Обновленная конфигурация Swiper
+ const swiper = new Swiper(".testimonials-slider", {
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true, // Сделать пагинацию кликабельной
+          },
+          slidesPerView: 3, // Ограничить количество кнопок пагинации тремя
+          loop: true, // Включить бесконечный цикл
+        });
+  
+</script>
+{%endblock%}
+
+
+
+

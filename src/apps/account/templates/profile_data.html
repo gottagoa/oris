@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="page-wrapper">
+    <!-- Page header -->
+    <div class="page-header d-print-none">
+      <div class="container-xl">
+        <div class="row g-2 align-items-center">
+          <div class="col">
+            <h2 class="page-title">
+              Настройки аккаунта
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page body -->
+    <div class="page-body">
+      <div class="container-xl">
+        <div class="card">
+          <div class="row g-0">
+            <div class="col-12 col-md-3 border-end">
+              {% include 'settings_sidebar_part.html' %}
+              
+            </div>
+            <div class="col-12 col-md-9 d-flex flex-column">
+              <div class="card-body">
+                <div class="mb-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-inline" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" /><path d="M3 7l9 6l9 -6" /></svg>
+                      <a href="#" class="text-reset">Электронная адрес: {{user.email}}
+                      </a>
+                    </div>
+                <div class="mb-2">
+                    <!-- Download SVG icon from http://tabler-icons.io/i/calendar -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-stats" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4"></path>
+                    <path d="M18 14v4h4"></path>
+                    <path d="M18 18m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path>
+                    <path d="M15 3v4"></path>
+                    <path d="M7 3v4"></path>
+                    <path d="M3 11h16"></path>
+                    </svg>                          
+                    Дата рождения: <strong>{{user.birthday}}</strong>
+                </div>
+                <div>
+                    <!-- Download SVG icon from http://tabler-icons.io/i/clock -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-gender-bigender" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M11 11m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path>
+                    <path d="M19 3l-5 5"></path>
+                    <path d="M15 3h4v4"></path>
+                    <path d="M11 16v6"></path>
+                    <path d="M8 19h6"></path>
+                    </svg> 
+                    Пол: <strong>{{user.gender}}</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <style>
+    img {
+    max-width: 10%;
+}
+  </style>
+{% endblock %}

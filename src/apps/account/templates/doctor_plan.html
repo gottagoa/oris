@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{%load static%}
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'path/to/styles.css' %}">
+
+
+<div class="page-wrapper">
+    <div class="page-header d-print-none">
+      <div class="container-xl">
+        <div class="row g-2 align-items-center">
+          <div class="col">
+            <h2 class="page-title">
+              Настройки профиля
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page body -->
+    <div class="page-body">
+      <div class="container-xl">
+        <div class="card">
+          <div class="row g-0">
+            <div class="col-12 col-md-3 border-end">
+              {% include 'settings_sidebar_part.html' %}
+            </div>
+            <div class="col-12 col-md-9 d-flex flex-column">
+              <table class="my-table">
+                <thead>
+                  <tr>
+                    <th>Номер записи</th>
+                    <th>Имя пациента</th>
+                    <th>Дата</th>
+                    <th>Время</th>
+                    <th>Запись истории болезни</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for appointment in appointments %}
+                    <tr>
+                      <td>{{ forloop.counter }}</td>
+                      <td>{{ appointment.patient }}</td>
+                      <td>{{ appointment.day|date:"Y-m-d" }}</td>
+                      <td>{{ appointment.time|date:"H:i" }}</td>
+                      <td>               
+                       <a href="{% url 'create_medical_record' appointment.id %}" data-toggle="modal" data-target="#medicalHistoryModal{{ appointment.pk }}">Создать запись</a>
+                        <div class="modal fade" id="medicalHistoryModal{{ appointment.pk }}" tabindex="-1" role="dialog" aria-labelledby="medicalHistoryModalLabel{{ appointment.pk }}" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="medicalHistoryModalLabel{{ appointment.pk }}">Запись истории болезни</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <a href="{% url 'create_medical_record' appointment.id %}" class="list-group-item list-group-item-action d-flex align-items-center">История записей пациентов
+
+                              <button type="submit" class="btn btn-primary">Сохранить</button>
+                              <div class="modal-body">
+                                <form method="post" enctype="multipart/form-data" action="{% url 'create_medical_record' appointment.id %}">
+                                  {% csrf_token %}
+                                  {{ form.as_p }}
+                                  <button type="submit" class="btn btn-primary">Сохранить</button>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  {% empty %}
+                    <tr>
+                      <td colspan="5">Нет записей пациентов</td>
+                    </tr>
+                  {% endfor %}
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<style>
+    /* Стили для таблицы */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+/* Стили для заголовка таблицы (шапки) */
+th {
+  background-color: #f2f2f2;
+  text-align: left;
+  padding: 8px;
+  border: 1px solid #ddd;
+}
+
+/* Стили для ячеек таблицы */
+td {
+  padding: 8px;
+  border: 1px solid #ddd;
+}
+
+/* Стили для нечетных строк (если нужно) */
+tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+</style>
+  
+  
+{% endblock %}

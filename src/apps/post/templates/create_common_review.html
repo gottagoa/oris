@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Оставить отзыв</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Отправить</button>
+  </form>
+  <a href="{% url 'review_list' %}">Перейти к отзывам</a>
+{% endblock %}

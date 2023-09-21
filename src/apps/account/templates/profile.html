@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+
+{% block  content %}           
+      <div class="page-body">
+        <div class="mb-2">
+        
+          <form method="post">
+            {% csrf_token %}
+            {% if user.avatar %}
+              <img class="round-image" src="{{ request.user.avatar.url }}" width="16" height="16"  alt="Аватар пользователя">
+              <!-- <span class="avatar avatar-lg rounded" width="16" height="16"  style="background-image: url({{user.avatar.url}})"></span> -->
+            {% else %}
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
+              </svg>
+            <!-- <span class="avatar avatar-lg rounded" style="background-image: url('/static/dist/img/default_profile.png')"></span> -->
+            {% endif %}
+          </div>
+          
+          <div class="mb-2">
+        
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-inline" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" /><path d="M3 7l9 6l9 -6" /></svg>
+                <a href="#" class="text-reset">Электронная адрес: {{user.email}}
+                </a>
+              </div>
+          <div class="mb-2">
+              <!-- Download SVG icon from http://tabler-icons.io/i/calendar -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-stats" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4"></path>
+              <path d="M18 14v4h4"></path>
+              <path d="M18 18m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path>
+              <path d="M15 3v4"></path>
+              <path d="M7 3v4"></path>
+              <path d="M3 11h16"></path>
+              </svg>                          
+              Дата рождения: <strong>{{user.birthday}}</strong>
+          </div>
+          <div>
+              <!-- Download SVG icon from http://tabler-icons.io/i/clock -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-gender-bigender" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M11 11m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path>
+              <path d="M19 3l-5 5"></path>
+              <path d="M15 3h4v4"></path>
+              <path d="M11 16v6"></path>
+              <path d="M8 19h6"></path>
+              </svg> 
+              Пол: <strong>{{user.gender}}</strong>
+          </div>
+          <div class="btn-list">
+
+                <a class="btn btn-primary mr-2" href="{%url 'edit_profile'%}">Редактировать профиль</a>
+              
+              </div>
+        </form>
+          
+                
+        </div>
+      </div>
+    
+    </div>
+</div>
+</section>
+<style>
+  .btn-success {
+      background-color: rgb(99, 195, 128);
+  }
+
+  .right-column.sticky-top {
+      position: sticky;
+      top: 10px;
+  }
+  .container.my-style {
+      margin-top: 10px;
+      background-color: #f3f3f2;
+  } 
+
+  .card-body.lipsyha{
+      margin-bottom: 20px;
+      /* padding-bottom: 50px; */
+      background-color: #ffffff;
+      border-radius: 15px;
+  }
+  
+  .starland{
+      margin: 5px;
+      padding: 10px;
+      border-radius: 10px;
+  }
+ 
+  .iconw {
+      width: 32px;
+      height: 32px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      margin-right: 5px;
+  }
+  .text-justify.new_size{
+      font-size: 16px;
+  }
+ 
+  .post-header img{
+      display: inline-block;
+  }
+  .post-header div{
+      display: inline-block;
+      margin: auto 0px;
+  }
+  .post-header p{
+      margin: 0;
+      padding: 0;
+     
+  }
+  .form-control.form-control-md.big-post{
+          height: 45px;
+          
+  }
+  
+  
+
+</style>
+{% endblock %}

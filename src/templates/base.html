@@ -1,0 +1,248 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title> Oris</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  
+  <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/animate.css/animate.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/aos/aos.css'%}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+    <!-- Template Main CSS File -->
+  <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+  
+
+  {% block css %}
+
+  {% endblock %}
+  <!-- =======================================================
+  * Template Name: Medicio
+  * Updated: Jul 27 2023 with Bootstrap v5.3.1
+  * Template URL: https://bootstrapmade.com/medicio-free-bootstrap-theme/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+
+<body>
+
+  <!-- ======= Top Bar ======= -->
+  <div id="topbar" class="d-flex align-items-center fixed-top">
+    <div class="container d-flex align-items-center justify-content-center justify-content-md-between">
+        <div class="align-items-center d-none d-md-flex" style="margin-top: 20px;">
+            <p style="font-size: 24px;">Oris</p>
+        </div>
+    </div>
+</div>
+
+
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top">
+    
+    <div class="container d-flex align-items-center">
+      <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt=""></a>
+     
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+        
+          <li><a class="nav-link scrollto " href="{% url 'index'%}">Главная</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'about_us'%}">О нас</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'services'%}">Услуги</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'doctors'%}">Специалисты</a></li>
+          <li class="dropdown">
+            <a href="{% url 'category_list'%}"><span>Отделения</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+                {% for category in categories %}
+                <li class="dropdown">
+                    <a href="{% url 'category_template' id=category.id %}">
+                        <span>{{ category.name }}</span> 
+                        {% if category.subcategories.all %}
+                        <i class="bi bi-chevron-right"></i>
+                        {% endif %}
+                    </a>
+                    <ul>
+                        {% for subcategory in category.subcategories.all %}
+                        <li><a href="{% url 'category_template' id=subcategory.id %}">{{ subcategory.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                {% endfor %}
+            </ul>
+        </li>
+          
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+     
+      </nav>
+      <a href="{% url 'book_appointment' %}" class="appointment-btn scrollto"><span class="d-none d-md-inline"></span> Запись на прием</a>     
+      </nav>
+
+      {% if request.user.is_authenticated %}
+        <div class="nav-item dropdown text-center"> <!-- Добавили text-center для центрирования -->
+          <a href="#" class="nav-link d-flex flex-column lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
+            <div class="d-flex flex-column align-items-center"> <!-- Добавлен контейнер для выравнивания по центру -->
+              {% if request.user.avatar %}
+                <img class="round-image mb-2" src="{{ request.user.avatar.url }}" width="48" height="48" alt="Аватар пользователя"> <!-- Увеличили ширину и высоту аватара, добавили mb-2 для отступа снизу -->
+              {% else %}
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-person mb-2" viewBox="0 0 16 16"> <!-- Увеличили ширину и высоту иконки, добавили mb-2 для отступа снизу -->
+                  <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
+                </svg>
+              {% endif %}
+            </div>
+            <!-- Полное имя пользователя под иконкой аватара -->
+            <div class="d-none d-xl-block ps-2">
+              <div class="mt-1 small text-secondary">{{ request.user.full_name }}</div>
+            </div>
+          </a>
+          <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+            <a href="{% url 'edit_profile' %}" class="dropdown-item">Личный кабинет</a>
+            <a href="{% url 'logout' %}" class="dropdown-item">Выйти</a>
+          </div>
+        </div>
+      {% else %}
+        <nav>
+          <a href="{% url 'login' %}" class="appointment-btn scrollto"><span class="d-none d-md-inline"></span> Войти</a>
+        </nav>
+      {% endif %}
+    
+  </header><!-- End Header -->
+  <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
+
+  
+  {%block content%}
+
+
+  {%endblock%}
+  <!-- <div class="row">
+    <div class="col-md-12">
+      <div class="info-box">
+        <i class="bx bx-map"></i>
+        <h3></h3>
+        <p></p>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="info-box mt-4">
+        <i class="bx bx-envelope"></i>
+        <h3></h3>
+        <p></p>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="info-box mt-4">
+        <i class="bx bx-phone-call"></i>
+        <h3></h3>
+        <p></p>
+      </div>
+    </div>
+  </div>
+
+  </div> -->
+  
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6">
+            <div class="footer-info">
+              <h3>Oris</h3>
+              <p>
+                
+                <strong>Адрес:</strong> {{contacts.address}}<br>
+                
+                <strong>Телефон:</strong> {{contacts.cell}}<br>
+                <strong>Email:</strong> {{contacts.email}}<br>
+              </p>
+              <div class="social-links mt-3">
+                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                <a href="{{contacts.instagram_link}}" class="instagram"><i class="bx bxl-instagram"></i></a>
+                <a href="{{contacts.youtube_link}}" class="google-plus"><i class="bx bxl-skype"></i></a>
+                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Полезные ссылки</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'index'%}">Главная</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'about_us'%}">О нас</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'services'%}">Услуги</a></li>
+        
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'doctors'%}">Специалисты</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'category_list'%}">Отделения</a></li>
+              <!-- <li><i class="bx bx-chevron-right"></i> <a href="#">Конфедициальность</a></li> -->
+            </ul>
+          </div>
+
+          <!-- <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Наши услуги</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+            </ul>
+          </div> -->
+
+          <!-- <div class="col-lg-4 col-md-6 footer-newsletter">
+            <h4>Новостной портал</h4>
+            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+            <form action="" method="post">
+              <input type="email" name="email"><input type="submit" value="Subscribe">
+            </form>
+
+          </div> -->
+
+        </div>
+      </div>
+    </div>
+
+    
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  {% block js %}
+    
+  {% endblock %}
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+  <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+
+</html>

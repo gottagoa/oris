@@ -1,0 +1,193 @@
+
+{% extends 'base.html' %}
+
+{% block css %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+{% endblock %}
+
+{% block content %}
+<form id="appointment-form" method="post" data-user="{{ request.user.id }}">
+    {% csrf_token %}
+
+    <label for="category">Выберите категорию врачей:</label>
+    <select name="category" id="category" class="form-control">
+        <option value="---">---</option>
+        {% for category in categories %}
+            <option value="{{ category.id }}" data-slug="{{ category.slug }}">{{ category.name }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="doctor">Выберите врача:</label>
+    <select name="doctor" id="doctor" class="form-control">
+        <option value="Выберите врача" disabled selected>Выберите врача</option>
+    </select>
+
+    </select>
+
+    <label for="date">Выберите дату:</label>
+    <input type="date" name="date" id="date" required class="form-control">
+
+    <label for="time">Выберите время:</label>
+    <select name="time" id="time" required class="form-control">
+        <option value="" disabled selected>Выберите дату</option>
+    </select>
+
+    <button type="submit">Забронировать</button>
+</form>
+
+<div class="container">
+    <h1 class="mt-5">Расписание </h1>
+    
+    <!-- Таблица расписания -->
+    <table class="table table-bordered mt-3" id="schedule">
+        <thead>
+            <tr>
+                <th>День недели</th>
+                <th>Время работы</th>
+            </tr>
+        </thead>
+        <tbody>
+    
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        var selectdoctorElement = $("#doctor");
+
+        $("#category").change(function () {
+            selectdoctorElement.empty();
+            var selectedOption = $(this).find("option:selected");
+            var slug = selectedOption.data("slug");
+
+            $.ajax({
+                type: "GET",
+                url: "/api/get_doctors_by_category/" + slug + "/",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                success: function (response) {
+                    response.forEach(function (doctor) {
+                        var option = $("<option>")
+                            .val(doctor.user.first_name + " " + doctor.user.last_name)
+                            .attr("data-id", doctor.user.id)
+                            .text(doctor.user.first_name + " " + doctor.user.last_name);
+                        selectdoctorElement.append(option);
+                    });
+                },
+                error: function () {
+                    console.log("Ошибка при получении данных о врачах");
+                }
+            });
+        });
+
+        $("#date").on("change", function () {
+            var selectedDate = $(this).val();
+            var selectedOption = $("#doctor").find("option:selected");
+            var userId = selectedOption.data("id");
+
+            $.ajax({
+                type: "POST",
+                url: "/doctor/available_slots/",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                data: JSON.stringify({
+                    date: selectedDate,
+                    user_id: userId
+                }),
+                success: function (response) {
+                    var slots = response.slots;
+                    $("#time").empty();
+                    for (var i = 0; i < slots.length; i++) {
+                        $("#time").append(new Option(slots[i], slots[i]));
+                    }
+                },
+                error: function () {
+                    console.log("Ошибка при получении временных слотов");
+                }
+            });
+        });
+
+        $("#appointment-form").on("submit", function (event) {
+            event.preventDefault();
+
+            var doctor = $("#doctor").find("option:selected");
+            var doctor_id = doctor.data("id");
+            var date = $("#date").val();
+            var time = $("#time").val();
+            var user_id = $("#appointment-form").data("user");
+
+            var data = {
+                "doctor_id": doctor_id,
+                "date": date,
+                "time": time,
+                "user_id": user_id
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/api/create/appointment/",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                data: JSON.stringify(data),
+                success: function (response) {
+                    toastr.success('Запись успешно создана!', 'Успех');
+                    $("#appointment-form").each(function () {
+                        this.reset();
+                    });
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    if (xhr.status === 400) {
+                        toastr.error(xhr.responseJSON.message);
+                    }  else if(xhr.status == 403){
+                        toastr.error(xhr.responseJSON.message)
+                    }  else {
+                        // Обработка других ошибок (если нужно)
+                    }
+                }
+            });
+        });
+
+        $("#doctor").change(function () {
+            var doctor = $("#doctor").find("option:selected");
+            var doctor_id = doctor.data("id");
+            console
+            $.ajax({
+                type: "GET",
+                url: "/api/get/doctor/availibity/"+doctor_id+"/",
+                success: function (response) {
+                    var table = $('#schedule tbody');
+                    table.empty()
+
+                    // Создадим строки и вставим данные
+                    for (var i = 0; i < response.day.length; i++) {
+                        var $row = $('<tr>');
+                        $row.append('<td>' + response.day[i] + '</td>');
+                        $row.append('<td>' + response.start_time + ' - ' + response.end_time + '</td>');
+                        table.append($row);
+                    }
+                    toastr.success("Succes!")
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    if (xhr.status === 400) {
+                        toastr.error(xhr.responseJSON.message);
+                    }  else if(xhr.status == 403){
+                        toastr.error(xhr.responseJSON.message)
+                    }  else {
+                        // Обработка других ошибок (если нужно)
+                    }
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

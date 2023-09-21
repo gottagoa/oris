@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="page-wrapper">
+    <!-- Page header -->
+    <div class="page-header d-print-none">
+        <div class="container-xl">
+            <div class="row g-2 align-items-center">
+                <div class="col">
+                    <h2 class="page-title">
+                        Настройки аккаунта
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page body -->
+    <div class="page-body">
+        <div class="container-xl">
+            <div class="card">
+                <div class="row g-0">
+                    <div class="col-12 col-md-3 border-end">
+                        {% include 'settings_sidebar_part.html' %}
+                    </div>
+                    <div class="col-12 col-md-9 d-flex flex-column">
+                        <div class="card-body">
+                            <form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <h3 class="card-title"></h3>
+                                <div class="row align-items-center">
+                                    <div class="col-md-3">
+                                        {% if form.instance.avatar %}
+                                        <img src="{{ form.instance.avatar.url }}" alt="">
+                                        {% endif %}
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label>Change avatar:</label>
+                                        {{ form.avatar }}
+                                    </div>
+                                    <div class="col-md">
+                                        <div class="form-label">Ваше имя</div>
+                                        {{ form.first_name }}
+                                    </div>
+                                    <div class="col-md">
+                                        <div class="form-label">Ваша фамилия</div>
+                                        {{ form.last_name }}
+                                    </div>
+                                    <div class="col-md">
+                                        <div class="form-label">Ваш день рождения</div>
+                                        {{ form.birthday }}
+                                    </div>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-md">
+                                        <div class="form-label">Электронная почта</div>
+                                        {{ form.email }}
+                                    </div>
+                                    <div class="col-md">
+                                        <div class="form-label">Мобильный телефон</div>
+                                        {{ form.mobile }}
+                                    </div>
+                                    <div class="col-md">
+                                        <div class="form-label">Пол</div>
+                                        {{ form.gender }}
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-transparent mt-auto">
+                                    <div class="btn-list justify-content-end">
+                                        <button type="submit"
+                                            style="background-color: #e0231a; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px;">Отмена</button>
+
+                                        <button type="submit"
+                                            style="background-color: #1173c9; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px;">Готово</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+</style>
+{% endblock %}

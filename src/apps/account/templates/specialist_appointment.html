@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+</head>
+<body>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Отправить</button>
+
+    </form>
+    <script>
+        $(document).ready(function() {
+            $('.datetimepicker').datetimepicker({
+                format: 'Y-m-d H:i', 
+                step: 60, 
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+{%endblock%}

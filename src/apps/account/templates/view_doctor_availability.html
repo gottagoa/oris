@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+  <h2>Доступное время доктора {{ doctor }}</h2>
+  
+  <table class="table">
+    <thead>
+      <tr>
+        <th>День</th>
+        <th>Время начала</th>
+        <th>Время окончания</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for slot in available_slots %}
+        <tr>
+          <td>{{ slot.day }}</td>
+          <td>{{ slot.start_time }}</td>
+          <td>{{ slot.end_time }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+
+{% endblock%}

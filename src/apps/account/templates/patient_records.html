@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="page-wrapper">
+    <div class="page-header d-print-none">
+      <div class="container-xl">
+        <div class="row g-2 align-items-center">
+          <div class="col">
+            <h2 class="page-title">
+              Настройки профиля
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page body -->
+    <div class="page-body">
+      <div class="container-xl">
+        <div class="card">
+          <div class="row g-0">
+            <div class="col-12 col-md-3 border-end">
+              {% include 'settings_sidebar_part.html' %}
+            </div>
+            <div class="col-12 col-md-9 d-flex flex-column">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Врач</th>
+                            <th>Дата</th>
+                            <th>Время</th>
+                            <th>Запись врача</th>
+                            <th>Файл</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for appointment in appointments %}
+                        <tr>
+                            <td>{{ appointment.doctor }}</td>
+                            <td>{{ appointment.day }}</td>
+                            <td>{{ appointment.time }}</td>
+                            <td>
+                                {% for medical_record in appointment.medicalrecord_set.all %}
+                                <button class="btn btn-link view-record" data-toggle="modal" data-target="#recordModal" data-record="{{ medical_record.medical_history }}">Подробнее</button>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% for medical_record in appointment.medicalrecord_set.all %}
+                                {% if medical_record.uploaded_file %}
+                                <a href="{{ medical_record.uploaded_file.url }}" target="_blank">Посмотреть файл</a>
+                                {% else %}
+                                Нет файла
+                                {% endif %}
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+    
+
+    <!-- Модальное окно для отображения записи врача -->
+    <div class="modal fade" id="recordModal" tabindex="-1" role="dialog" aria-labelledby="recordModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="recordModalLabel">Запись врача</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="recordContent">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Подключение jQuery и Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Обработчик клика на кнопку "Подробнее"
+            $('.view-record').click(function () {
+                var recordText = $(this).data('record');
+                $('#recordContent').text(recordText);
+            });
+        });
+    </script>
+
+
+{% endblock %}

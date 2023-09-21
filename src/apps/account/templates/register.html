@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section id="registration" class="registration section-bg">
+    <div class="container" data-aos="fade-up">
+        <div class="section-title">
+            <h2>Зарегистрироваться</h2>
+            <p>Создайте аккаунт, чтобы иметь доступ к личному кабинету</p>
+        </div>
+
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {% if form.errors %}
+                <div class="alert alert-danger">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <strong>{{ error|escape }}</strong><br>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="{{ form.avatar.id_for_label }}">Выберите аватар</label>
+                {{ form.avatar }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.first_name.id_for_label }}">Имя</label>
+                {{ form.first_name }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.last_name.id_for_label }}">Фамилия</label>
+                {{ form.last_name }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.email.id_for_label }}">Email</label>
+                {{ form.email }}
+            </div>
+            
+
+            <div class="form-group">
+                <label for="{{ form.mobile.id_for_label }}">Мобильный телефон</label>
+                {{ form.mobile }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.gender.id_for_label }}">Пол</label>
+                {{ form.gender }}
+            </div>
+
+            <div class="form-group">
+              <label for="{{ form.password1.id_for_label }}">Пароль</label>
+              {{ form.password1 }}
+            </div>
+          
+            <div class="form-group">
+              <label for="{{ form.password2.id_for_label }}">Повторите пароль</label>
+              {{ form.password2 }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.birthday.id_for_label }}">Дата рождения</label>
+                {{ form.birthday }}
+            </div>
+
+            <div class="form-check">
+                {{ form.is_staff }}<br>
+                <label class="form-check-label" for="{{ form.is_staff.id_for_label }}">
+                    {% if form.is_staff.value %}
+                        Вы являетесь специалистом клиники
+                    {% else %}
+                        Вы не являетесь персоналом клиники
+                    {% endif %}
+                </label>
+            </div>
+
+            <div class="form-check">
+                {{ form.is_active }}<br>
+                <label class="form-check-label" for="{{ form.is_active.id_for_label }}">
+                    {% if form.is_active.value %}
+                        Ваш профиль активен
+                    {% else %}
+                        Ваш профиль не активен
+                    {% endif %}
+                </label>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Готово</button>
+        </form>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<section id="services" class="service">
+    <div class="container" data-aos="fade-up">
+      <div class="section-title">
+        <h2>{{ service.name }}</h2>
+        <img class="service-image" src="{{ service.image.url }}" alt="">
+    </div>    
+        <div class="description-columns">
+            {% for sentence in description_sentences %}
+                <p>{{ sentence }}</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<style>
+
+.description-columns p {
+    font-weight: bold;
+    color: #334848;
+    margin-bottom: 10px; 
+}
+
+.service-image {
+    max-width: 80%; 
+    height: 80%; 
+    display: block;
+    margin: 0 auto; 
+}
+
+
+</style>
+{% endblock %}
+ 

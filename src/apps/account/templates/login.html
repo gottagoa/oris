@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{%block content%}
+
+
+<section class="vh-100">
+    <div class="container-fluid h-custom">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-9 col-lg-6 col-xl-5">
+                <img src="/media/login-thum.jpg" class="img-fluid" alt="Sample image">
+            </div>
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="divider d-flex align-items-center my-4">
+                        <p class="text-center fw-bold mx-3 mb-0">Войти в свой аккаунт</p>
+                    </div>
+                    <!-- Email input -->
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="form3Example3">{{ form.email.label }}</label>
+                        {{ form.email }}
+                    </div>
+                    <!-- Password input -->
+                    <div class="form-outline mb-3">
+                        <label class="form-label" for="form3Example4">{{ form.password.label }}</label>
+                        {{ form.password }}
+                    </div>
+                    <div class="text-center text-lg-start mt-4 pt-2">
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn btn-success">Готово</button>
+                            <a href="{% url 'register' %}" class="btn btn-success">Зарегистрироваться</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+ <!-- <div
+      class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary"> -->
+<!--      
+      <div>
+        <a href="#!" class="text-white me-4">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="#!" class="text-white me-4">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#!" class="text-white me-4">
+          <i class="fab fa-google"></i>
+        </a>
+        <a href="#!" class="text-white">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </div> -->
+      <!-- Right -->
+    <!-- </div> -->
+
+
+<style>
+    .divider:after,
+    .divider:before {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #eee;
+    }
+    .h-custom {
+        height: calc(100% - 20px); /* Уменьшил расстояние между футером и белым фоном */
+    }
+    @media (max-width: 450px) {
+        .h-custom {
+            height: 100%;
+        }
+    }
+
+  .divider:after,
+.divider:before {
+content: "";
+flex: 1;
+height: 1px;
+background: #eee;
+}
+.h-custom {
+height: calc(100% - 73px);
+}
+@media (max-width: 450px) {
+.h-custom {
+height: 100%;
+}
+}
+
+</style>
+
+{%endblock%}
