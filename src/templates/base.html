@@ -179,11 +179,11 @@
                 <strong>Email:</strong> {{contacts.email}}<br>
               </p>
               <div class="social-links mt-3">
-                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                <a href="{{contacts.twitter_link}}" class="twitter"><i class="bx bxl-twitter"></i></a>
+                <a href="{{contacts.acebook_link}}" class="facebook"><i class="bx bxl-facebook"></i></a>
                 <a href="{{contacts.instagram_link}}" class="instagram"><i class="bx bxl-instagram"></i></a>
-                <a href="{{contacts.youtube_link}}" class="google-plus"><i class="bx bxl-skype"></i></a>
-                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                <a href="{{contacts.youtube_link}}" class="google-plus"><i class="bx bxl-youtube"></i></a>
+                <a href="{{contacts.linkedin_link}}" class="linkedin"><i class="bx bxl-linkedin"></i></a>
               </div>
             </div>
           </div>
@@ -197,7 +197,7 @@
         
               <li><i class="bx bx-chevron-right"></i> <a href="{% url 'doctors'%}">Специалисты</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="{% url 'category_list'%}">Отделения</a></li>
-              <!-- <li><i class="bx bx-chevron-right"></i> <a href="#">Конфедициальность</a></li> -->
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'view_privacy'%}">Конфедициальность</a></li>
             </ul>
           </div>
 

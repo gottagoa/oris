@@ -18,5 +18,6 @@ urlpatterns = [
     path('rewards/', views.reward_list, name='reward_list'),
     path('service_template/<int:id>/', views.get_service, name='service_template'),
     path('doctor_reviews/<int:doctor_id>/', views.doctor_reviews, name='doctor_reviews'),
+    path('privacy', views.view_privacy, name='view_privacy'),
   
 ]

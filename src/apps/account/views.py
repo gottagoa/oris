@@ -218,8 +218,6 @@ def book_appointment(request):
             chosen_time = form.cleaned_data["time"]
             selected_doctor = form.cleaned_data['doctor']
             day_of_week = chosen_day.weekday()
-
-           
             ave = DoctorAvailability.objects.get(doctor=selected_doctor)
             days = [day.number for day in ave.days.all()]
 

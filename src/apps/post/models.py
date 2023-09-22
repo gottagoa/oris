@@ -126,3 +126,15 @@ class Gallery(models.Model):
     class Meta:
         verbose_name='Галерея'
         verbose_name_plural = "Галерея"
+
+class Privacy(models.Model):
+    title=models.CharField('Глава', max_length=250, blank=True, null=True)
+    description=models.TextField('Описание', null=True)
+
+    class Meta:
+        verbose_name = "Конфедициальность"
+
+    def __str__(self):
+        return self.description
+
+    

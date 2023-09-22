@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Service, Review, About, Contacts, Rewards, FAQ, Gallery, Rewards
+from .models import Category, Service, Review, About, Contacts, Rewards, FAQ, Gallery, Rewards, Privacy
 from .forms import ReviewAdminForm
 
 
@@ -21,3 +21,5 @@ class RewardAdmin(admin.ModelAdmin):
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
     form = ReviewAdminForm
+
+admin.site.register(Privacy)

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Category, Service, Review, About, Contacts, Rewards, AboutType, FAQ, Gallery
+from .models import Category, Service, Review, About, Contacts, Rewards, AboutType, FAQ, Gallery, Privacy
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from .forms import ReviewAdminForm
@@ -227,8 +227,8 @@ def get_service(request, id):
     return render(request, 'service_template.html', context)
 
 
-
-
-
+def view_privacy(request):
+    description=Privacy.objects.all()
+    return render(request, 'privacy.html', {'description': description})
 
 

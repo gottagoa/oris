@@ -1,9 +1,62 @@
 {% extends 'base.html' %}
- {% load static %}
- {% load humanize %}
  {% block content %}
 
-
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="styles.css">
+     <title>Конфиденциальность</title>
+ </head>
+ <body>
+     <div class="privacy-policy">
+        {% for privacy in description %}
+            <div class="privacy-point">
+                <h2>{{privacy.title}}</h2>
+                <p>{{privacy.description}}</p>
+            </div>
+         {% endfor %}
+     </div>
+ </body>
+ </html>
+<style>
+ /* Общий стиль для всей страницы */
+ body {
+     font-family: Arial, sans-serif;
+     margin: 0;
+     padding: 0;
+     background-color: #f0f0f0;
+ }
  
+ .privacy-policy {
+     max-width: 800px;
+     margin: 0 auto;
+     padding: 20px;
+     background-color: #fff;
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+ }
+ 
+ /* Стиль для заголовка */
+ h1 {
+     font-size: 24px;
+     margin-bottom: 20px;
+ }
+ 
+ /* Стиль для каждого пункта конфиденциальности */
+ .privacy-point {
+     margin-bottom: 20px;
+ }
+ 
+ .privacy-point h2 {
+     font-size: 20px;
+     margin-bottom: 10px;
+     color: #333;
+ }
+ 
+ .privacy-point p {
+     font-size: 16px;
+     line-height: 1.5;
+     color: #666;
+ }
 
+</style>
  {%endblock%}
